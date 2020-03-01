@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
-
 *, ::after, ::before {
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
@@ -22,11 +21,11 @@ body {
 
 .stopwatch__wrap {
     position: absolute;
-    top: 75px;
+    top: 15px;
     background-color: azure;
-    width: 95%;
+    width: 96%;
     margin: 0 auto;
-    height: 250px;
+    height: 200px;
     padding: 10px;
     margin: 10px;
     transform: translate(0, 5%);
@@ -35,8 +34,49 @@ body {
 }
 
 .digits__wrap {
-    padding: 70px 50px 0 70px;
+    padding: 30px 50px 0 30px;
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+.digits {
+    font-size: 30px;
+}
+
+.btns__wrap {
+    position: absolute;
+    top: 95px;
+    width: 90%;
+    margin: 0 auto;
+    height: 40px;
+    padding: 10px;
+    margin: 10px;
+    transform: translateX(-1.5%);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 00px 30px 0 30px;
+}
+
+.btn-watch {
+    background-color: rgb(142, 83, 197);
+    box-shadow: 1px 2px 2px rgb(142, 50, 228);
+    color: black;
+    font-size: 22px;
+    padding: 4px;
+    text-decoration: none;
+}
+
+.btn-watch:hover {
+    transform: translate(5%, 5%);
+    transition: 0.5;
+    color: white;
+    cursor: pointer;
+}
+
+.stopwatch-laps {
+    position: absolute;
+    top: 260px;
+    padding: 10px;
 }
