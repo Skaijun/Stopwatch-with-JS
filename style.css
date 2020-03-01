@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
+
+*, ::after, ::before {
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: rgb(142, 83, 197);
+    float: left;
+    min-height: 100vh;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.container {
+    background-color: aquamarine;
+    width: 500px;
+    height: 95vh;
+    position: relative;
+}
+
+.stopwatch__wrap {
+    position: absolute;
+    top: 75px;
+    background-color: azure;
+    width: 95%;
+    margin: 0 auto;
+    height: 250px;
+    padding: 10px;
+    margin: 10px;
+    transform: translate(0, 5%);
+    border: 2px solid blueviolet;
+    box-shadow: 1px 2px 2px cornflowerblue;
+}
+
+.digits__wrap {
+    padding: 70px 50px 0 70px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
