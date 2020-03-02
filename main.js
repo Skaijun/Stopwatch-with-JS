@@ -16,6 +16,7 @@ const timerState = {
     setMyInterval: null,
     isStarted: false,
     isPaused: false,
+    lapsQuantity: 0,
     hours: {
         x: 0,
         y: 0,
@@ -31,7 +32,6 @@ const timerState = {
     mseconds: {
         x: 0,
         y: 0,
-        z: 0,
     }
 };
 
@@ -55,22 +55,31 @@ function createCounter() {
         timerState.hours.y = timerState.hours.y + 1;
     }
 
-    if (timerState.seconds.y < 9) {
-        timerState.seconds.y++;
-    } else if (timerState.seconds.x != 5 && timerState.seconds.y === 9) {
+    if (timerState.seconds.x != 5 && timerState.seconds.y > 9) {
         timerState.seconds.y = 0;
         timerState.seconds.x = timerState.seconds.x + 1;
-    } else if (timerState.seconds.x === 5 && timerState.seconds.y === 9) {
+    } else if (timerState.seconds.x === 5 && timerState.seconds.y > 9) {
         timerState.seconds.y = 0;
         timerState.seconds.x = 0;
         timerState.minutes.y = timerState.minutes.y + 1;
+    }
+
+    if (timerState.mseconds.y < 9) {
+        timerState.mseconds.y++;
+    } else if (timerState.mseconds.x != 9 && timerState.mseconds.y === 9) {
+        timerState.mseconds.y = 0;
+        timerState.mseconds.x = timerState.mseconds.x + 1;
+    } else if (timerState.mseconds.x === 9 && timerState.mseconds.y === 9) {
+        timerState.mseconds.y = 0;
+        timerState.mseconds.x = 0;
+        timerState.seconds.y = timerState.seconds.y + 1;
     }
 
 }
 
 
 function setValueToHTML() {
-    ML_SECONDS.innerHTML = `${timerState.mseconds.x}${timerState.mseconds.y}${timerState.mseconds.z}`;
+    ML_SECONDS.innerHTML = `${timerState.mseconds.x}${timerState.mseconds.y}`;
     SECONDS.innerHTML = `${timerState.seconds.x}${timerState.seconds.y}`;
     MINUTES.innerHTML = `${timerState.minutes.x}${timerState.minutes.y}`;
     HOURS.innerHTML = `${timerState.hours.x}${timerState.hours.y}`;
@@ -82,7 +91,7 @@ function setValueToLapLi() {
         s,
         ms;
 
-    ms = `${timerState.mseconds.x}${timerState.mseconds.y}${timerState.mseconds.z}`;
+    ms = `${timerState.mseconds.x}${timerState.mseconds.y}`;
     s = `${timerState.seconds.x}${timerState.seconds.y}`;
     m = `${timerState.minutes.x}${timerState.minutes.y}`;
     h = `${timerState.hours.x}${timerState.hours.y}`;
@@ -91,7 +100,7 @@ function setValueToLapLi() {
 }
 
 function setToStart() {
-    let values = [timerState.hours, timerState.minutes, timerState.seconds];
+    let values = [timerState.hours, timerState.minutes, timerState.seconds, timerState.mseconds];
     for (let i = 0; i < values.length; i++) {
         values[i].x = 0;
         values[i].y = 0;
@@ -109,7 +118,7 @@ function getLapToHTML() {
 function intervalFunction() {
     timerState.setMyInterval = setInterval(() => {
         createCounter();
-    }, 1);
+    }, 10);
     return timerState.setMyInterval;
 }
 
@@ -129,11 +138,9 @@ HOLD.addEventListener('click', function () {
     if (timerState.isStarted && !timerState.isPaused) {
         clearInterval(timerState.setMyInterval);
         timerState.isPaused = true;
-        console.log('PAUSA')
     } else if (timerState.isPaused) {
         intervalFunction();
         timerState.isPaused = false;
-        console.log('IGRAEM POSLE PAUSA')
 
     }
 });
@@ -153,21 +160,20 @@ LAP.addEventListener('click', function () {
     if (!timerState.isStarted) {
         return;
     } else {
+        timerState.lapsQuantity++;
         getLapToHTML();
     }
 });
 
 RESET.addEventListener('click', function () {
-
-    let removeList = document.querySelector('.stopwatch-laps-list').childNodes;
-    for (let li of removeList) {
-        li.parentElement.removeChild(li);
+    let removeList = document.querySelector('.stopwatch-laps-list');
+    for (let i = 0; i < timerState.lapsQuantity; i++) {
+        let li = removeList.firstElementChild;
+        removeList.removeChild(li);
     }
-    // for (let i = 0; i < removeList.length; i++) {
-    //     removeList[i].parentElement.removeChild(removeList[i]);
-    // }
     clearInterval(timerState.setMyInterval);
     setToStart();
     timerState.isStarted = false;
     timerState.isPaused = false;
+    timerState.lapsQuantity = 0;
 });
