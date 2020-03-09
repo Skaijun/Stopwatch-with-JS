@@ -103,15 +103,10 @@ class Stopwatch {
     }
 
     setValueToLapLi() {
-        let h,
-            m,
-            s,
-            ms;
-
-        ms = `${this.timerState.mseconds.x}${this.timerState.mseconds.y}`;
-        s = `${this.timerState.seconds.x}${this.timerState.seconds.y}`;
-        m = `${this.timerState.minutes.x}${this.timerState.minutes.y}`;
-        h = `${this.timerState.hours.x}${this.timerState.hours.y}`;
+        let ms = `${this.timerState.mseconds.x}${this.timerState.mseconds.y}`;
+        let s = `${this.timerState.seconds.x}${this.timerState.seconds.y}`;
+        let m = `${this.timerState.minutes.x}${this.timerState.minutes.y}`;
+        let h = `${this.timerState.hours.x}${this.timerState.hours.y}`;
         let currentLap = `${h} : ${m} : ${s} : ${ms}`;
         return currentLap;
     }
@@ -132,17 +127,17 @@ class Stopwatch {
     }
 
     setEventsToBTNs(currDocument) {
-        const PLAY = currDocument.querySelector('#play');
-        const HOLD = currDocument.querySelector('#hold');
-        const STOP = currDocument.querySelector('#stop');
-        const LAP = currDocument.querySelector('#lap');
-        const RESET = currDocument.querySelector('#reset');
+        this.play = currDocument.querySelector('#play');
+        this.hold = currDocument.querySelector('#hold');
+        this.stop = currDocument.querySelector('#stop');
+        this.lap = currDocument.querySelector('#lap');
+        this.reset = currDocument.querySelector('#reset');
         // ---------------
-        PLAY.addEventListener('click', this.handlePlay);
-        HOLD.addEventListener('click', this.handleHold);
-        STOP.addEventListener('click', this.handleStop);
-        LAP.addEventListener('click', this.handleLap);
-        RESET.addEventListener('click', this.handleReset);
+        this.play.addEventListener('click', this.handlePlay);
+        this.hold.addEventListener('click', this.handleHold);
+        this.stop.addEventListener('click', this.handleStop);
+        this.lap.addEventListener('click', this.handleLap);
+        this.reset.addEventListener('click', this.handleReset);
     }
 
     handlePlay() {
@@ -186,8 +181,7 @@ class Stopwatch {
     }
 
     handleReset() {
-        let myDoc = this.selectedHTMLElement;
-        let removeList = myDoc.querySelector('.stopwatch-laps-list');
+        let removeList = this.selectedHTMLElement.querySelector('.stopwatch-laps-list');
         for (let i = 0; i < this.lapsQuantity; i++) {
             let li = removeList.firstElementChild;
             removeList.removeChild(li);
